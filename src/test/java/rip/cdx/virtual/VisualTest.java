@@ -1,5 +1,6 @@
 package rip.cdx.virtual;
 
+import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
@@ -10,7 +11,9 @@ import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
+import rip.cdx.virtual.components.Button;
 import rip.cdx.virtual.components.Counter;
 import rip.cdx.virtual.ui.UI;
 
@@ -34,7 +37,15 @@ public class VisualTest {
 
         globalEventHandler.addListener(PlayerChatEvent.class, event -> {
             UI ui = new UI("My UI", 6)
-                    .addComponents(new Counter(Material.DIRT));
+                    .addComponents(
+                            new Counter(Material.DIRT),
+                            new Button(
+                                    ItemStack.builder(Material.DARK_OAK_BUTTON)
+                                            .customName(Component.text("Suicide Button"))
+                                            .build(),
+                                    virtualEvent -> virtualEvent.getEvent().getPlayer().kill()
+                            )
+                    );
             ui.show(event.getPlayer());
         });
 
