@@ -15,6 +15,7 @@ import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import rip.cdx.virtual.components.Button;
 import rip.cdx.virtual.components.Counter;
+import rip.cdx.virtual.components.Item;
 import rip.cdx.virtual.ui.UI;
 
 public class VisualTest {
@@ -44,6 +45,16 @@ public class VisualTest {
                                             .customName(Component.text("Suicide Button"))
                                             .build(),
                                     virtualEvent -> virtualEvent.getEvent().getPlayer().kill()
+                            ),
+                            new Item(
+                                    ItemStack.builder(Material.ACACIA_HANGING_SIGN)
+                                            .customName(Component.text("This is a cool item"))
+                                            .lore(
+                                                    Component.text("With some fancy lore"),
+                                                    Component.text("and some more lore")
+                                            )
+                                            .build(),
+                                    false
                             )
                     );
             ui.show(event.getPlayer());
