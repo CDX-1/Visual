@@ -1,5 +1,6 @@
 package rip.cdx.virtual.ui.virtual;
 
+import lombok.Getter;
 import net.minestom.server.event.inventory.*;
 import net.minestom.server.event.trait.InventoryEvent;
 import net.minestom.server.tag.Tag;
@@ -18,6 +19,7 @@ import java.util.function.Consumer;
 
 @SuppressWarnings("unchecked")
 public class Virtual {
+    @Getter
     private final Inventory inventory;
     private final UI ui;
     private boolean hasRendered = false;
@@ -142,12 +144,12 @@ public class Virtual {
 
         if (component instanceof OpenHandler) {
             List<Consumer<InventoryEvent>> handlers = eventHandlers.computeIfAbsent(InventoryOpenEvent.class, (key) -> new ArrayList<>());
-            handlers.add((event) -> ((OpenHandler) component).onOpen((VirtualEvent<InventoryOpenEvent>) event));
+            handlers.add((event) -> ((OpenHandler) component).onOpen(wrapEvent((InventoryOpenEvent) event)));
         }
 
         if (component instanceof CloseHandler) {
             List<Consumer<InventoryEvent>> handlers = eventHandlers.computeIfAbsent(InventoryCloseEvent.class, (key) -> new ArrayList<>());
-            handlers.add((event) -> ((CloseHandler) component).onClose((VirtualEvent<InventoryCloseEvent>) event));
+            handlers.add((event) -> ((CloseHandler) component).onClose(wrapEvent((InventoryCloseEvent) event)));
         }
 
         if (component instanceof ItemChangeHandler) {
