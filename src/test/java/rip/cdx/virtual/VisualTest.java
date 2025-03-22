@@ -16,6 +16,7 @@ import net.minestom.server.item.Material;
 import rip.cdx.virtual.components.Button;
 import rip.cdx.virtual.components.Counter;
 import rip.cdx.virtual.components.Item;
+import rip.cdx.virtual.components.Toggle;
 import rip.cdx.virtual.ui.UI;
 
 public class VisualTest {
@@ -55,6 +56,14 @@ public class VisualTest {
                                             )
                                             .build(),
                                     false
+                            ),
+                            new Toggle(
+                                    ItemStack.builder(Material.GREEN_STAINED_GLASS_PANE)
+                                            .customName(Component.text("On"))
+                                            .build(),
+                                    ItemStack.builder(Material.RED_STAINED_GLASS_PANE)
+                                            .customName(Component.text("Off"))
+                                            .build()
                             )
                     );
             ui.show(event.getPlayer());

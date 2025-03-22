@@ -13,6 +13,16 @@ public class Toggle extends UIComponent implements PreClickHandler {
     private final State<ItemStack> offState = new State<>();
     private final State<Boolean> toggleState = new State<>();
 
+    public Toggle(ItemStack onItem, ItemStack offItem, boolean initialToggle) {
+        this.onState.set(onItem);
+        this.offState.set(offItem);
+        this.toggleState.set(initialToggle);
+    }
+
+    public Toggle(ItemStack onItem, ItemStack offItem) {
+        this(onItem, offItem, false);
+    }
+
     @Override
     public void render(Renderer renderer) {
         renderer.setItem(renderer.nextSlot(), subRenderer -> {
