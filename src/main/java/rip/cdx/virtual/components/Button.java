@@ -42,6 +42,7 @@ public class Button extends UIComponent {
     @Override
     public void onPreClick(@Nullable UIComponent component, Renderer renderer, InventoryPreClickEvent event) {
         if (component != this) return;
+        event.setCancelled(true);
         action.get(renderer).accept(event);
     }
 }
