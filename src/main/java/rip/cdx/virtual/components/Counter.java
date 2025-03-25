@@ -27,7 +27,7 @@ public class Counter extends UIComponent {
 
     @Override
     public void onUpdate(ComponentUpdateEvent event) {
-        int count = event.getState(counter);
+        int count = counter.get(event);
         event.setItem(
                 event.getReservedSlots().getFirst(),
                 ItemStack.builder(Material.CLOCK)
