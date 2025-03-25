@@ -15,6 +15,7 @@ import rip.cdx.virtual.ui.component.UIComponent;
 import rip.cdx.virtual.ui.events.component.ComponentReservationEvent;
 import rip.cdx.virtual.ui.events.component.ComponentUpdateEvent;
 import rip.cdx.virtual.ui.state.State;
+import rip.cdx.virtual.ui.state.StateResolver;
 import rip.cdx.virtual.utils.Canceller;
 
 import java.util.*;
@@ -22,7 +23,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
-public class Renderer {
+public class Renderer implements StateResolver {
     @Getter
     private final UUID uuid = UUID.randomUUID();
     private final List<UIComponent> components;
@@ -113,7 +114,7 @@ public class Renderer {
         return virtualSlots.get(slot);
     }
 
-    public void updateComponent(UIComponent component) {
+    void updateComponent(UIComponent component) {
         ComponentUpdateEvent event = new ComponentUpdateEvent(this, component);
         component.onUpdate(event);
     }
@@ -151,22 +152,10 @@ public class Renderer {
                 .collect(Collectors.toList());
     }
 
-    public <T> T getState(State<T> state) {
-        return (T) states.getOrDefault(state.getUuid(), state.getDefaultValue());
-    }
-
-    public <T> void setState(State<T> state, T value) {
-        states.put(state.getUuid(), value);
-        List<Consumer<Object>> listenersCopy = new ArrayList<>(stateListeners.getOrDefault(state.getUuid(), List.of()));
-        listenersCopy.forEach(consumer -> consumer.accept(value));
-    }
-
     public <T> Canceller onStateChange(State<T> state, Consumer<T> consumer) {
         List<Consumer<Object>> listeners = stateListeners.computeIfAbsent(state.getUuid(), k -> new ArrayList<>());
         listeners.add((Consumer<Object>) consumer);
-        return () -> {
-            listeners.remove(consumer);
-        };
+        return () -> listeners.remove(consumer);
     }
 
     public int nextSlot() {
@@ -176,5 +165,17 @@ public class Renderer {
             }
         }
         throw new InventoryOverflowException("Failed to find next slot in inventory");
+    }
+
+    @Override
+    public <T> T getState(State<T> state) {
+        return (T) states.getOrDefault(state.getUuid(), state.getDefaultValue());
+    }
+
+    @Override
+    public <T> void setState(State<T> state, T value) {
+        states.put(state.getUuid(), value);
+        List<Consumer<Object>> listenersCopy = new ArrayList<>(stateListeners.getOrDefault(state.getUuid(), List.of()));
+        listenersCopy.forEach(consumer -> consumer.accept(value));
     }
 }
