@@ -4,7 +4,7 @@ import net.minestom.server.event.inventory.InventoryPreClickEvent;
 import net.minestom.server.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import rip.cdx.virtual.ui.component.UIComponent;
-import rip.cdx.virtual.ui.events.ComponentReservationEvent;
+import rip.cdx.virtual.ui.events.ComponentInitializeEvent;
 import rip.cdx.virtual.ui.events.ComponentUpdateEvent;
 import rip.cdx.virtual.ui.rendering.Renderer;
 import rip.cdx.virtual.ui.state.State;
@@ -32,7 +32,7 @@ public class Pagination extends UIComponent {
     }
 
     @Override
-    public void onReservation(ComponentReservationEvent event) {
+    public void onInitialize(ComponentInitializeEvent event) {
         int offset = event.nextSlotIfNull(slot);
         for (int i = 0; i < pageSize; i++) {
             event.reserve(offset + i);
@@ -99,7 +99,7 @@ public class Pagination extends UIComponent {
         }
 
         @Override
-        public void onReservation(ComponentReservationEvent event) {
+        public void onInitialize(ComponentInitializeEvent event) {
             event.reserve(event.nextSlotIfNull(slot));
         }
 

@@ -2,7 +2,7 @@ package rip.cdx.virtual.ui.component;
 
 import net.minestom.server.event.inventory.*;
 import org.jetbrains.annotations.Nullable;
-import rip.cdx.virtual.ui.events.ComponentReservationEvent;
+import rip.cdx.virtual.ui.events.ComponentInitializeEvent;
 import rip.cdx.virtual.ui.events.ComponentUpdateEvent;
 import rip.cdx.virtual.ui.rendering.Renderer;
 
@@ -17,7 +17,7 @@ public abstract class UIComponent {
         this.slot = null;
     }
 
-    public void onReservation(ComponentReservationEvent event) {}
+    public void onInitialize(ComponentInitializeEvent event) {}
     public void onUpdate(ComponentUpdateEvent event) {}
 
     public void onClick(@Nullable UIComponent component, Renderer renderer, InventoryClickEvent event) {}

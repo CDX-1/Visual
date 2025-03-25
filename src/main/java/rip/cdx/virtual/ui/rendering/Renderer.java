@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import rip.cdx.virtual.exceptions.InventoryOverflowException;
 import rip.cdx.virtual.exceptions.SlotReservedException;
 import rip.cdx.virtual.ui.component.UIComponent;
-import rip.cdx.virtual.ui.events.ComponentReservationEvent;
+import rip.cdx.virtual.ui.events.ComponentInitializeEvent;
 import rip.cdx.virtual.ui.events.ComponentUpdateEvent;
 import rip.cdx.virtual.ui.state.State;
 import rip.cdx.virtual.ui.state.StateResolver;
@@ -39,8 +39,8 @@ public class Renderer implements StateResolver {
         this.size = inventory.getSize();
 
         for (UIComponent component : components) {
-            ComponentReservationEvent event = new ComponentReservationEvent(this);
-            component.onReservation(event);
+            ComponentInitializeEvent event = new ComponentInitializeEvent(this);
+            component.onInitialize(event);
             List<Integer> reservedSlots = event.getReservedSlots();
             for (int reservedSlot : reservedSlots) {
                 virtualSlots.put(reservedSlot, new VirtualSlot(component, ItemStack.AIR));

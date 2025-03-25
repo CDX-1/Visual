@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
-public class ComponentReservationEvent {
+public class ComponentInitializeEvent {
     private final Renderer renderer;
     @Getter
     private final List<Integer> reservedSlots = new ArrayList<>();
