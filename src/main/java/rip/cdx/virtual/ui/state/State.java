@@ -13,7 +13,7 @@ public class State<T> {
     private final UUID uuid = UUID.randomUUID();
     private @Nullable T defaultValue = null;
 
-    public State(T defaultValue) {
+    public State(@Nullable T defaultValue) {
         this.defaultValue = defaultValue;
     }
 

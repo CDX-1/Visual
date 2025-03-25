@@ -35,7 +35,7 @@ public class ComponentUpdateEvent implements StateResolver {
         T value = state.get(renderer);
         AtomicReference<Canceller> canceller = new AtomicReference<>();
         canceller.set(
-                renderer.onStateChange(state, newValue -> {
+                renderer.onStateChange(state,_ -> {
                     renderer.render();
                     canceller.get().cancel();
                 })
