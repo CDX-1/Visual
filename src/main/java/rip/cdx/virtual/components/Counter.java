@@ -1,39 +1,45 @@
 package rip.cdx.virtual.components;
 
-import rip.cdx.virtual.ui.component.UIComponent;
-import rip.cdx.virtual.ui.events.PreClickHandler;
-import rip.cdx.virtual.ui.events.VirtualEvent;
-import rip.cdx.virtual.ui.state.State;
-import rip.cdx.virtual.ui.virtual.Renderer;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.event.inventory.InventoryPreClickEvent;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
+import org.jetbrains.annotations.Nullable;
+import rip.cdx.virtual.ui.component.UIComponent;
+import rip.cdx.virtual.ui.events.component.ComponentReservationEvent;
+import rip.cdx.virtual.ui.events.component.ComponentUpdateEvent;
+import rip.cdx.virtual.ui.rendering.Renderer;
+import rip.cdx.virtual.ui.state.State;
 
-public class Counter extends UIComponent implements PreClickHandler {
-    private final State<Material> materialState = new State<>(Material.OAK_BUTTON);
-    private final State<Integer> counterState = new State<>(0);
+public class Counter extends UIComponent {
+    private final State<Integer> counter = new State<>(0);
+
+    public Counter(int slot) {
+        super(slot);
+    }
 
     public Counter() {}
 
-    public Counter(Material material) {
-        materialState.set(material);
+    @Override
+    public void onReservation(ComponentReservationEvent event) {
+        event.reserve(event.nextSlotIfNull(slot));
     }
 
     @Override
-    public void render(Renderer renderer) {
-        renderer.setItem(renderer.nextSlot(), subRenderer -> {
-            int counter = subRenderer.getState(counterState);
-            return ItemStack.builder(materialState.get())
-                    .customName(Component.text("Counter: " + counter))
-                    .build();
-        });
+    public void onUpdate(ComponentUpdateEvent event) {
+        int count = event.getState(counter);
+        event.setItem(
+                event.getReservedSlots().getFirst(),
+                ItemStack.builder(Material.CLOCK)
+                        .customName(Component.text("Counter: " + count))
+                        .build()
+        );
     }
 
     @Override
-    public void onPreClick(VirtualEvent<InventoryPreClickEvent> virtualEvent) {
-        int counter = virtualEvent.getVirtual().getState(counterState);
-        virtualEvent.getVirtual().setState(counterState, counter + 1);
-        virtualEvent.getEvent().setCancelled(true);
+    public void onPreClick(@Nullable UIComponent component, Renderer renderer, InventoryPreClickEvent event) {
+        if (component != this) return;
+        event.setCancelled(true);
+        counter.modify(renderer, count -> count + 1);
     }
 }
