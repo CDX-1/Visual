@@ -1,12 +1,28 @@
 package rip.cdx.virtual.ui.component;
 
-import lombok.Getter;
-import rip.cdx.virtual.ui.virtual.Renderer;
+import net.minestom.server.event.inventory.*;
+import org.jetbrains.annotations.Nullable;
+import rip.cdx.virtual.ui.events.component.ComponentReservationEvent;
+import rip.cdx.virtual.ui.events.component.ComponentUpdateEvent;
+import rip.cdx.virtual.ui.rendering.Renderer;
 
-import java.util.UUID;
-
-@Getter
 public abstract class UIComponent {
-    private final UUID uuid = UUID.randomUUID();
-    public abstract void render(Renderer renderer);
+    @Nullable
+    protected final Integer slot;
+
+    public UIComponent(int slot) {
+        this.slot = slot;
+    }
+    public UIComponent() {
+        this.slot = null;
+    }
+
+    public void onReservation(ComponentReservationEvent event) {}
+    public void onUpdate(ComponentUpdateEvent event) {}
+
+    public void onClick(@Nullable UIComponent component, Renderer renderer, InventoryClickEvent event) {}
+    public void onPreClick(@Nullable UIComponent component, Renderer renderer, InventoryPreClickEvent event) {}
+    public void onItemChange(@Nullable UIComponent component, Renderer renderer, InventoryItemChangeEvent event) {}
+    public void onOpen(Renderer renderer, InventoryOpenEvent event) {}
+    public void onClose(Renderer renderer, InventoryCloseEvent event) {}
 }
