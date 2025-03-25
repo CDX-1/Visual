@@ -6,8 +6,8 @@ import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import org.jetbrains.annotations.Nullable;
 import rip.cdx.virtual.ui.component.UIComponent;
-import rip.cdx.virtual.ui.events.component.ComponentReservationEvent;
-import rip.cdx.virtual.ui.events.component.ComponentUpdateEvent;
+import rip.cdx.virtual.ui.events.ComponentReservationEvent;
+import rip.cdx.virtual.ui.events.ComponentUpdateEvent;
 import rip.cdx.virtual.ui.rendering.Renderer;
 import rip.cdx.virtual.ui.state.State;
 

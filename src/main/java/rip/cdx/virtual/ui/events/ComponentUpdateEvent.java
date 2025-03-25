@@ -1,4 +1,4 @@
-package rip.cdx.virtual.ui.events.component;
+package rip.cdx.virtual.ui.events;
 
 import lombok.RequiredArgsConstructor;
 import net.minestom.server.item.ItemStack;

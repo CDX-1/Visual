@@ -2,8 +2,8 @@ package rip.cdx.virtual.ui.component;
 
 import net.minestom.server.event.inventory.*;
 import org.jetbrains.annotations.Nullable;
-import rip.cdx.virtual.ui.events.component.ComponentReservationEvent;
-import rip.cdx.virtual.ui.events.component.ComponentUpdateEvent;
+import rip.cdx.virtual.ui.events.ComponentReservationEvent;
+import rip.cdx.virtual.ui.events.ComponentUpdateEvent;
 import rip.cdx.virtual.ui.rendering.Renderer;
 
 public abstract class UIComponent {

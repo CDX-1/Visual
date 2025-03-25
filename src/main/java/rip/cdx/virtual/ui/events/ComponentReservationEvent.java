@@ -1,4 +1,4 @@
-package rip.cdx.virtual.ui.events.component;
+package rip.cdx.virtual.ui.events;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
