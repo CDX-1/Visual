@@ -39,7 +39,7 @@ publishing {
                 name = project.name
                 description = project.description
                 url = "https://github.com/CDX-1/Visual"
-                inceptionYear = "2021"
+                inceptionYear = "2025"
                 licenses {
                     license {
                         name = "GPL-2.0"
