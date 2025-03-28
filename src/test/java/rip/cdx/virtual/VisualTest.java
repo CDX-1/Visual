@@ -12,6 +12,7 @@ import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
+import rip.cdx.virtual.components.Button;
 import rip.cdx.virtual.components.Pagination;
 import rip.cdx.virtual.ui.UI;
 import rip.cdx.virtual.ui.UIViewer;
@@ -54,7 +55,8 @@ public class VisualTest {
                             new Pagination.NextButton(
                                     33,
                                     ItemStack.builder(Material.ARROW).build()
-                            )
+                            ),
+                            new Button(ItemStack.builder(Material.DIAMOND_SWORD).build(), e -> e.getPlayer().sendMessage("hi"))
                     )
                     .createViewer();
             viewer.show(event.getPlayer());
