@@ -47,7 +47,7 @@ public class Renderer implements StateResolver {
             }
         }
 
-        EventNode<InventoryEvent> node = EventNode.type(uuid.toString(), EventFilter.INVENTORY, (_, inv) -> inventory == inv);
+        EventNode<InventoryEvent> node = EventNode.type(uuid.toString(), EventFilter.INVENTORY, (event, inv) -> inventory == inv);
         MinecraftServer.getGlobalEventHandler().addChild(node);
 
         node.addListener(InventoryClickEvent.class, event -> {
@@ -153,7 +153,7 @@ public class Renderer implements StateResolver {
     }
 
     public <T> Canceller onStateChange(State<T> state, Consumer<T> consumer) {
-        List<Consumer<Object>> listeners = stateListeners.computeIfAbsent(state.getUuid(), _ -> new ArrayList<>());
+        List<Consumer<Object>> listeners = stateListeners.computeIfAbsent(state.getUuid(), key -> new ArrayList<>());
         listeners.add((Consumer<Object>) consumer);
         return () -> listeners.remove(consumer);
     }
