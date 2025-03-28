@@ -12,15 +12,21 @@ import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
-import rip.cdx.virtual.components.Button;
+import rip.cdx.virtual.components.Filler;
 import rip.cdx.virtual.components.Pagination;
 import rip.cdx.virtual.ui.UI;
 import rip.cdx.virtual.ui.UIViewer;
+import rip.cdx.virtual.ui.component.UIComponent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class VisualTest {
+    static List<UIComponent> get() {
+        return List.of();
+    }
+
     public static void main(String[] args) {
         MinecraftServer minecraftServer = MinecraftServer.init();
 
@@ -56,7 +62,11 @@ public class VisualTest {
                                     33,
                                     ItemStack.builder(Material.ARROW).build()
                             ),
-                            new Button(ItemStack.builder(Material.DIAMOND_SWORD).build(), e -> e.getPlayer().sendMessage("hi"))
+                            new Filler(
+                                    IntStream.rangeClosed(45, 53),
+                                    ItemStack.builder(Material.GRAY_STAINED_GLASS_PANE).build(),
+                                    e -> e.getPlayer().sendMessage("hi!")
+                            )
                     )
                     .createViewer();
             viewer.show(event.getPlayer());
