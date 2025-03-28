@@ -44,6 +44,7 @@ public class Filler extends UIComponent {
 
     @Override
     public void onPreClick(@Nullable UIComponent component, Renderer renderer, InventoryPreClickEvent event) {
+        if (component != this) return;
         event.setCancelled(true);
         @Nullable Consumer<InventoryPreClickEvent> action = actionState.get(renderer);
         if (action != null) {
