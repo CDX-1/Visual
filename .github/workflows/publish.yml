@@ -15,6 +15,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
+      JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
+      JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+      JRELEASER_MAVENCENTRAL_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_USERNAME }}
+      JRELEASER_MAVENCENTRAL_PASSWORD: ${{ secrets.JRELEASER_MAVENCENTRAL_PASSWORD }}
+      JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,18 +51,9 @@ jobs:
         run: ./gradlew publish
 
       - name: Full Release
-        env:
-          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
-          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
-          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
-          JRELEASER_MAVENCENTRAL_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_USERNAME }}
-          JRELEASER_MAVENCENTRAL_PASSWORD: ${{ secrets.JRELEASER_MAVENCENTRAL_PASSWORD }}
-          JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
         run: ./gradlew jreleaserFullRelease
 
       - name: Create Github Release and Upload Artifact
-        env:
-          GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
         run: |
           VERSION=${{ github.event.inputs.version }}
           CHANGELOG=${{ github.event.inputs.changelog }}
