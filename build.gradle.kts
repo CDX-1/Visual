@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "rip.cdx"
-version = "0.1.1"
+version = "0.1.2"
 
 description = "A component-based GUI library for Minestom, inspired by React.js"
 
