@@ -31,7 +31,10 @@ public class Filler extends UIComponent {
 
     @Override
     public void onInitialize(ComponentInitializeEvent event) {
-        range.forEach(event::reserve);
+        range.forEach(i -> {
+            if (!event.getReservedSlots().contains(i)) return;
+            event.reserve(i);
+        });
     }
 
     @Override
