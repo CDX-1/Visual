@@ -55,8 +55,8 @@ jobs:
 
       - name: Create Github Release and Upload Artifact
         run: |
-          VERSION=${{ github.event.inputs.version }}
-          CHANGELOG=${{ github.event.inputs.changelog }}
+          VERSION="${{ github.event.inputs.version }}"
+          CHANGELOG="${{ github.event.inputs.changelog }}"
           
           RELEASE_RESPONSE=$(curl -s -X POST "https://api.github.com/repos/${{ github.repository }}/releases" \
             -H "Authorization: token $GITHUB_TOKEN" \
