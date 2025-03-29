@@ -25,6 +25,9 @@ jobs:
           java-version: '21'
           distribution: 'corretto'
 
+      - name: Grant execute permission to Gradle wrapper
+        run: chmod +x gradlew
+
       - name: Cache Gradle Dependencies
         uses: actions/cache@v4
         with:
